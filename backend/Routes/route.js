@@ -71,14 +71,13 @@ route.post("/create", async (req, res) => {
     await Sendmail({ Register: true, email });
     const userData = new User(data);
     let info = await userData.save();
-    res.status(201).json({ message: info });
+    res.status(201).json(info);
   } catch (err) {
-    console.error(err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
-// for send otp
+// for Send otp
 route.post("/otp", async (req, res) => {
   let { email } = req.body;
   if (!email) {
