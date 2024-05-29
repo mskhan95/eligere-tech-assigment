@@ -70,7 +70,7 @@ route.post("/create", async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     if (user) {
-      return res.status(404).json({ error: "Email Already Registerd" });
+      return res.status(409).json({ error: "Email Already Registerd" });
     }
     await Sendmail({ Register: true, email });
     const userData = new User(data);
