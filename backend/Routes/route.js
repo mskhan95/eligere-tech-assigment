@@ -68,6 +68,10 @@ route.post("/create", async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
   }
   try {
+    const user = await User.findOne({ email: email });
+    if (user) {
+      return res.status(404).json({ error: "Email Already Registerd" });
+    }
     await Sendmail({ Register: true, email });
     const userData = new User(data);
     let info = await userData.save();
